@@ -1,0 +1,78 @@
+url: https://ustc-has.github.io/HASr/
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    primary: "#0054AD"
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+
+home:
+  title: "HASr: Hefei Aging Study Data Processing Tools"
+  description: >
+    Comprehensive R package for processing and analyzing data from the 
+    Hefei Aging Study (HAS) cohort.
+  
+navbar:
+  title: "HASr"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "Reference"
+      href: reference/index.html
+    - text: "Articles"
+      menu:
+        - text: "Data Processing Guide"
+          href: articles/data-processing.html
+    - text: "News"
+      href: news/index.html
+  right:
+    - icon: fab fa-github
+      href: https://github.com/USTC-HAS/HASr
+      aria-label: GitHub
+
+reference:
+  - title: "Data Parsing Functions"
+    desc: "Functions for extracting and processing specific data modules"
+    contents:
+      - parse_demo
+      - parse_neuro
+      - parse_msk
+  
+  - title: "Utility Functions"
+    desc: "General utility functions for data cleaning and processing"
+    contents:
+      - parse_birth_date
+      - clean_numeric
+      - clean_and_convert
+  
+  - title: "Visualization Functions"
+    desc: "Functions for creating plots and visualizations"
+    contents:
+      - plot_activity_by_sex
+
+articles:
+  - title: "Getting Started"
+    navbar: ~
+    contents:
+      - data-processing
+
+authors:
+  HAS Research Team:
+    href: "https://has.ustc.edu.cn"
+  University of Science and Technology of China:
+    href: "https://www.ustc.edu.cn"
+    html: "<img src='https://www.ustc.edu.cn/images/logo.png' height='24' alt='USTC'>"
+
+footer:
+  structure:
+    left: [developed_by, built_with]
+    right: [package]
+  components:
+    package: "HASr package version"
+    developed_by: |
+      Developed by the [HAS Research Team](https://has.ustc.edu.cn) at 
+      [University of Science and Technology of China](https://www.ustc.edu.cn).
+    built_with: |
+      Built with [pkgdown](https://pkgdown.r-lib.org/) and 
+      [GitHub Actions](https://github.com/features/actions).

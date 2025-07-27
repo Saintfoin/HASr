@@ -1,0 +1,64 @@
+# GitHub Pages Configuration for HASr
+# HASr GitHub Pages 配置
+
+title: "HASr: Hefei Aging Study Data Processing Tools"
+description: "Comprehensive R package for processing and analyzing data from the Hefei Aging Study (HAS) cohort"
+
+# Theme
+theme: minima
+
+# Language settings
+lang: en
+
+# Navigation
+header_pages:
+  - index.md
+  - documentation.md
+  - examples.md
+  - about.md
+
+# Social links
+github_username: USTC-HAS
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - R/
+  - man/
+  - tests/
+  - .Rproj.user/
+
+# Collections
+collections:
+  vignettes:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "vignettes"
+    values:
+      layout: "page"

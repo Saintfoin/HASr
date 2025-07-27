@@ -1,0 +1,40 @@
+Package: HASr
+Type: Package
+Title: Hefei Aging Study (HAS) Data Processing and Analysis Tools
+Version: 0.1.0
+Date: 2024-12-19
+Authors@R: c(
+    person("HAS Research Team", role = c("aut", "cre"),
+           email = "has@ustc.edu.cn"),
+    person("University of Science and Technology of China", role = "cph")
+    )
+Description: A comprehensive R package for processing and analyzing data from the 
+    Hefei Aging Study (HAS) cohort. This package provides functions for data 
+    cleaning, variable extraction, and statistical analysis of demographic, 
+    neurological, musculoskeletal, cardiovascular, endocrine, immunological, 
+    and cerebrovascular health indicators in urban aging populations. The HAS 
+    cohort focuses on healthy aging progression in Luyang District, Hefei, 
+    integrating clinical, cognitive, imaging, and biomarker data from adults 
+    aged 55 and older.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.2.3
+Depends: 
+    R (>= 4.0.0)
+Imports:
+    dplyr (>= 1.0.0),
+    stringr (>= 1.4.0),
+    lubridate (>= 1.8.0),
+    ggplot2 (>= 3.3.0),
+    scales (>= 1.1.0),
+    readr (>= 2.0.0),
+    tidyr (>= 1.1.0)
+Suggests:
+    knitr (>= 1.30),
+    rmarkdown (>= 2.0),
+    testthat (>= 3.0.0)
+VignetteBuilder: knitr
+URL: https://github.com/USTC-HAS/HASr
+BugReports: https://github.com/USTC-HAS/HASr/issues
+Keywords: aging, cohort, epidemiology, biostatistics, urban health

@@ -1,0 +1,179 @@
+{
+  "title": "Hefei Aging Study (HAS) Data Schema",
+  "description": "Metadata and schema descriptions for HAS cohort data processing",
+  "version": "0.1.0",
+  "last_updated": "2024-12-19",
+  "contact": "has@ustc.edu.cn",
+  
+  "datasets": {
+    "d_demo": {
+      "description": "Demographic and socioeconomic variables",
+      "description_zh": "人口统计学和社会经济变量",
+      "variables": {
+        "age": {
+          "type": "numeric",
+          "description": "Age in years",
+          "description_zh": "年龄（岁）",
+          "range": [55, 100]
+        },
+        "sex": {
+          "type": "factor",
+          "description": "Biological sex",
+          "description_zh": "生理性别",
+          "levels": ["Male", "Female"]
+        },
+        "education": {
+          "type": "factor",
+          "description": "Education level",
+          "description_zh": "教育水平",
+          "levels": ["Primary", "Secondary", "Higher"]
+        },
+        "bmi": {
+          "type": "numeric",
+          "description": "Body Mass Index (kg/m²)",
+          "description_zh": "体重指数（kg/m²）",
+          "range": [15, 50]
+        }
+      }
+    },
+    
+    "d_neuro": {
+      "description": "Neurological and cognitive assessment variables",
+      "description_zh": "神经系统和认知评估变量",
+      "variables": {
+        "mmse_total": {
+          "type": "numeric",
+          "description": "Mini-Mental State Examination total score",
+          "description_zh": "简易精神状态检查总分",
+          "range": [0, 30]
+        },
+        "moca_total": {
+          "type": "numeric",
+          "description": "Montreal Cognitive Assessment total score",
+          "description_zh": "蒙特利尔认知评估总分",
+          "range": [0, 30]
+        },
+        "adl_total": {
+          "type": "numeric",
+          "description": "Activities of Daily Living total score",
+          "description_zh": "日常生活活动能力总分",
+          "range": [0, 100]
+        }
+      }
+    },
+    
+    "d_msk": {
+      "description": "Musculoskeletal health variables",
+      "description_zh": "骨骼肌肉健康变量",
+      "variables": {
+        "frax_score": {
+          "type": "numeric",
+          "description": "FRAX 10-year fracture risk score",
+          "description_zh": "FRAX 10年骨折风险评分",
+          "range": [0, 100]
+        },
+        "bone_density": {
+          "type": "numeric",
+          "description": "Bone mineral density (g/cm²)",
+          "description_zh": "骨密度（g/cm²）",
+          "range": [0.5, 2.0]
+        }
+      }
+    },
+    
+    "d_card": {
+      "description": "Cardiovascular health variables",
+      "description_zh": "心血管健康变量",
+      "variables": {
+        "systolic_bp": {
+          "type": "numeric",
+          "description": "Systolic blood pressure (mmHg)",
+          "description_zh": "收缩压（mmHg）",
+          "range": [80, 250]
+        },
+        "diastolic_bp": {
+          "type": "numeric",
+          "description": "Diastolic blood pressure (mmHg)",
+          "description_zh": "舒张压（mmHg）",
+          "range": [40, 150]
+        }
+      }
+    },
+    
+    "d_endo": {
+      "description": "Endocrine and metabolic variables",
+      "description_zh": "内分泌和代谢变量",
+      "variables": {
+        "glucose": {
+          "type": "numeric",
+          "description": "Fasting glucose (mmol/L)",
+          "description_zh": "空腹血糖（mmol/L）",
+          "range": [3.0, 20.0]
+        },
+        "hba1c": {
+          "type": "numeric",
+          "description": "Glycated hemoglobin (%)",
+          "description_zh": "糖化血红蛋白（%）",
+          "range": [4.0, 15.0]
+        }
+      }
+    },
+    
+    "d_immo": {
+      "description": "Immunological and inflammatory variables",
+      "description_zh": "免疫和炎症变量",
+      "variables": {
+        "crp": {
+          "type": "numeric",
+          "description": "C-reactive protein (mg/L)",
+          "description_zh": "C反应蛋白（mg/L）",
+          "range": [0, 100]
+        },
+        "nlr": {
+          "type": "numeric",
+          "description": "Neutrophil-to-lymphocyte ratio",
+          "description_zh": "中性粒细胞与淋巴细胞比值",
+          "range": [0.5, 20.0]
+        }
+      }
+    },
+    
+    "d_scvd": {
+      "description": "Cerebrovascular disease variables",
+      "description_zh": "脑血管疾病变量",
+      "variables": {
+        "fazekas_score": {
+          "type": "numeric",
+          "description": "Fazekas scale score for white matter lesions",
+          "description_zh": "白质病变Fazekas评分",
+          "range": [0, 6]
+        },
+        "tau_protein": {
+          "type": "numeric",
+          "description": "Tau protein levels (pg/mL)",
+          "description_zh": "Tau蛋白水平（pg/mL）",
+          "range": [0, 1000]
+        }
+      }
+    }
+  },
+  
+  "data_processing": {
+    "missing_values": {
+      "codes": ["NA", "NULL", "", ".", "999", "-999"],
+      "description": "Common missing value codes in the dataset",
+      "description_zh": "数据集中常见的缺失值代码"
+    },
+    "quality_checks": {
+      "range_validation": "Values outside specified ranges are flagged",
+      "consistency_checks": "Cross-variable consistency validation",
+      "duplicate_detection": "Identification of duplicate records"
+    }
+  },
+  
+  "references": {
+    "study_protocol": "HAS Study Protocol v1.0",
+    "data_dictionary": "HAS Data Dictionary v1.0",
+    "ethics_approval": "USTC Ethics Committee Approval #2024-001"
+  }
+}

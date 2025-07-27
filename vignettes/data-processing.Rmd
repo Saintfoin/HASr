@@ -1,0 +1,248 @@
+---
+title: "HAS Data Processing Guide"
+author: "HAS Research Team"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{HAS Data Processing Guide}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# HAS Data Processing Guide / HAS数据处理指南
+
+## Introduction / 简介
+
+### English
+
+This vignette provides a comprehensive guide to processing data from the Hefei Aging Study (HAS) using the HASr package. The HAS cohort focuses on urban aging progression in Luyang District, Hefei, China, and includes clinical, cognitive, imaging, and biomarker data from adults aged 55 and older.
+
+### 中文
+
+本说明文档提供了使用HASr包处理合肥老龄化研究（HAS）数据的综合指南。HAS队列聚焦于中国合肥庐阳区的城市老龄化进程，包括55岁及以上成年人的临床、认知、影像学和生物标志物数据。
+
+## Getting Started / 开始使用
+
+```{r setup}
+library(HASr)
+library(dplyr)
+library(ggplot2)
+```
+
+## Data Processing Workflow / 数据处理工作流程
+
+### 1. Demographic Data Processing / 人口统计学数据处理
+
+```{r demo-processing, eval=FALSE}
+# Load your raw data
+# 加载原始数据
+raw_data <- read.csv("path/to/your/data.csv")
+
+# Process demographic variables
+# 处理人口统计学变量
+demo_data <- parse_demo(
+  df = raw_data,
+  age = TRUE,           # Include age calculation
+  sex = TRUE,           # Include sex variable
+  education = TRUE,     # Include education level
+  marriage = TRUE,      # Include marriage status
+  bmi = TRUE,           # Calculate BMI
+  ses = TRUE,           # Include socioeconomic status
+  smoking = TRUE,       # Include smoking status
+  drinking = TRUE       # Include drinking status
+)
+
+# View the processed data
+head(demo_data)
+```
+
+### 2. Neurological Assessment Processing / 神经系统评估处理
+
+```{r neuro-processing, eval=FALSE}
+# Process neurological and cognitive variables
+# 处理神经系统和认知变量
+neuro_data <- parse_neuro(
+  df = raw_data,
+  sensory = TRUE,       # Include sensory function
+  fall_risk = TRUE,     # Include fall risk assessment
+  sleep = TRUE,         # Include sleep structure
+  adl = TRUE,           # Include ADL assessment
+  iadl = TRUE,          # Include IADL assessment
+  cognition = TRUE      # Include cognitive tests
+)
+
+# View cognitive test scores
+neuro_data %>%
+  select(contains("mmse"), contains("moca")) %>%
+  summary()
+```
+
+### 3. Musculoskeletal Health Processing / 骨骼肌肉健康处理
+
+```{r msk-processing, eval=FALSE}
+# Process musculoskeletal health variables
+# 处理骨骼肌肉健康变量
+msk_data <- parse_msk(
+  df = raw_data,
+  osteoporosis = TRUE,  # Include osteoporosis risk factors
+  bone_metabolism = TRUE, # Include bone metabolism markers
+  frax = TRUE,          # Calculate FRAX scores
+  garvan = TRUE,        # Calculate Garvan scores
+  sarcopenia = TRUE,    # Include sarcopenia assessment
+  arthritis = TRUE      # Include arthritis evaluation
+)
+
+# View FRAX risk scores
+msk_data %>%
+  select(contains("frax")) %>%
+  summary()
+```
+
+## Data Cleaning Utilities / 数据清洗工具
+
+### Birth Date Parsing / 出生日期解析
+
+```{r birth-date, eval=FALSE}
+# Example birth date formats
+birth_dates <- c(
+  "1965年5月7日",
+  "19650507", 
+  "1965.05.07",
+  "1965/05/07",
+  "1965-05-07"
+)
+
+# Parse birth dates
+parsed_dates <- parse_birth_date(birth_dates)
+print(parsed_dates)
+```
+
+### Numeric Data Cleaning / 数值数据清洗
+
+```{r numeric-cleaning, eval=FALSE}
+# Example messy numeric data
+messy_numbers <- c(
+  "123.45kg",
+  "67.8 cm",
+  "45 mg/dl",
+  "2.5e-3",
+  "1,234.56"
+)
+
+# Clean numeric data
+clean_numbers <- clean_numeric(messy_numbers)
+print(clean_numbers)
+
+# Advanced cleaning with conversion
+advanced_clean <- clean_and_convert(messy_numbers)
+print(advanced_clean)
+```
+
+## Data Visualization / 数据可视化
+
+### Activity Distribution by Sex / 按性别的活动分布
+
+```{r activity-plot, eval=FALSE}
+# Create sample activity data
+activity_data <- data.frame(
+  sex = rep(c("Male", "Female"), each = 20),
+  age_group = rep(c("55-64", "65-74", "75+"), length.out = 40),
+  activity_type = sample(c("High", "Moderate", "Low", "Sedentary"), 40, replace = TRUE),
+  percent = runif(40, 10, 30)
+)
+
+# Plot activity distribution for males
+male_plot <- plot_activity_by_sex(activity_data, "Male")
+print(male_plot)
+
+# Plot activity distribution for females
+female_plot <- plot_activity_by_sex(activity_data, "Female")
+print(female_plot)
+```
+
+## Advanced Analysis Examples / 高级分析示例
+
+### Combining Multiple Data Sources / 合并多个数据源
+
+```{r combine-data, eval=FALSE}
+# Process all data modules
+demo_processed <- parse_demo(raw_data, age = TRUE, sex = TRUE, bmi = TRUE)
+neuro_processed <- parse_neuro(raw_data, cognition = TRUE, adl = TRUE)
+msk_processed <- parse_msk(raw_data, frax = TRUE, sarcopenia = TRUE)
+
+# Combine all processed data
+combined_data <- demo_processed %>%
+  left_join(neuro_processed, by = "id") %>%
+  left_join(msk_processed, by = "id")
+
+# Summary of combined dataset
+summary(combined_data)
+```
+
+### Quality Control Checks / 质量控制检查
+
+```{r quality-control, eval=FALSE}
+# Check for missing values
+missing_summary <- combined_data %>%
+  summarise_all(~sum(is.na(.))) %>%
+  gather(variable, missing_count) %>%
+  arrange(desc(missing_count))
+
+print(missing_summary)
+
+# Check for outliers in continuous variables
+outlier_check <- combined_data %>%
+  select_if(is.numeric) %>%
+  summarise_all(list(
+    Q1 = ~quantile(., 0.25, na.rm = TRUE),
+    Q3 = ~quantile(., 0.75, na.rm = TRUE),
+    IQR = ~IQR(., na.rm = TRUE)
+  ))
+
+print(outlier_check)
+```
+
+## Best Practices / 最佳实践
+
+### English
+
+1. **Data Validation**: Always validate your data ranges and check for inconsistencies
+2. **Missing Data**: Handle missing values appropriately based on your analysis goals
+3. **Documentation**: Keep detailed records of all data processing steps
+4. **Reproducibility**: Use version control and document your R environment
+5. **Quality Control**: Implement systematic quality checks throughout your workflow
+
+### 中文
+
+1. **数据验证**: 始终验证数据范围并检查不一致性
+2. **缺失数据**: 根据分析目标适当处理缺失值
+3. **文档记录**: 详细记录所有数据处理步骤
+4. **可重现性**: 使用版本控制并记录R环境
+5. **质量控制**: 在整个工作流程中实施系统性质量检查
+
+## Troubleshooting / 故障排除
+
+### Common Issues / 常见问题
+
+1. **Date Parsing Errors**: Ensure date formats are consistent
+2. **Numeric Conversion Issues**: Check for non-numeric characters in data
+3. **Missing Variables**: Verify column names match expected format
+4. **Memory Issues**: Process data in chunks for large datasets
+
+## Further Reading / 延伸阅读
+
+- [HASr Package Documentation](../reference/index.html)
+- [GitHub Repository](https://github.com/Saintfoin/HASr)
+- [HAS Study Protocol](https://has.ustc.edu.cn/protocol)
+
+---
+
+*For questions or support, please contact: has@ustc.edu.cn*  
+*如有问题或需要支持，请联系：zhangxianzuo@ustc.edu.cn*
