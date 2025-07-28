@@ -1,52 +1,69 @@
-# GitHub Pages Configuration for HASr
-# HASr GitHub Pages 配置
-
-title: "HASr: Hefei Aging Study Data Processing Tools"
-description: "Comprehensive R package for processing and analyzing data from the Hefei Aging Study (HAS) cohort"
+# Site settings
+title: "🧠 HASr: Hefei Aging Study Data Processing Tools"
+description: "A comprehensive R package for processing and analyzing Hefei Aging Study cohort data | 合肥老龄化研究数据处理工具包"
+baseurl: "/HASr"
+url: "https://saintfoin.github.io"
 
 # Theme
 theme: minima
 
-# Language settings
+# Language
 lang: en
+
+# Site metadata
+author:
+  name: "HAS Research Team"
+  email: "has@ustc.edu.cn"
+
+# SEO settings
+seo:
+  type: "Organization"
+  name: "University of Science and Technology of China"
+  links:
+    - "https://github.com/Saintfoin/HASr"
+    - "https://saintfoin.github.io/HASr/"
 
 # Navigation
 header_pages:
   - index.md
+  - about.md
   - documentation.md
   - examples.md
-  - about.md
 
 # Social links
-github_username: USTC-HAS
+github_username: Saintfoin
+twitter_username: USTC_HAS
+
+# Google Analytics (optional)
+# google_analytics: UA-XXXXXXXX-X
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
 
 # Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-
-# Exclude from processing
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor/bundle/
-  - vendor/cache/
-  - vendor/gems/
-  - vendor/ruby/
-  - R/
-  - man/
-  - tests/
-  - .Rproj.user/
+  - jekyll-github-metadata
+  - jekyll-relative-links
 
 # Collections
 collections:
-  vignettes:
+  examples:
+    output: true
+    permalink: /:collection/:name/
+  tutorials:
     output: true
     permalink: /:collection/:name/
 
@@ -54,11 +71,73 @@ collections:
 defaults:
   - scope:
       path: ""
-      type: "pages"
+      type: "posts"
     values:
-      layout: "default"
+      layout: "post"
+      author: "HAS Research Team"
   - scope:
       path: ""
-      type: "vignettes"
+      type: "pages"
     values:
       layout: "page"
+  - scope:
+      path: "_examples"
+      type: "examples"
+    values:
+      layout: "example"
+  - scope:
+      path: "_tutorials"
+      type: "tutorials"
+    values:
+      layout: "tutorial"
+
+# Sass settings
+sass:
+  sass_dir: _sass
+  style: compressed
+
+# Exclude from processing
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - R/
+  - man/
+  - tests/
+  - vignettes/
+  - scripts/
+  - data/
+  - .Rbuildignore
+  - .gitignore
+  - DESCRIPTION
+  - NAMESPACE
+  - LICENSE
+  - NEWS.md
+  - run_check.R
+  - "*.Rmd"
+  - "*.Rproj"
+  - .Rproj.user/
+
+# Include files
+include:
+  - _pages
+  - assets
+
+# Site features
+show_excerpts: true
+date_format: "%B %d, %Y"
+
+# Custom variables
+custom:
+  version: "0.1.0"
+  r_version: "≥ 4.0.0"
+  github_repo: "Saintfoin/HASr"
+  documentation_url: "https://saintfoin.github.io/HASr/"
+  cran_url: "https://cran.r-project.org/package=HASr"

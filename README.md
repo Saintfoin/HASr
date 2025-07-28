@@ -1,28 +1,85 @@
-# HASr: Hefei Aging Study Data Processing Tools
-# HASr：合肥老龄化研究数据处理工具包
+<div align="center">
 
-[![R-CMD-check](https://github.com/USTC-HAS/HASr/workflows/R-CMD-check/badge.svg)](https://github.com/USTC-HAS/HASr/actions)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+# 🧠 HASr: Hefei Aging Study Data Processing Tools
+# 🧠 HASr：合肥老龄化研究数据处理工具包
 
-## Background & Purpose / 项目背景与目的
+<p align="center">
+  <img src="https://img.shields.io/badge/R-276DC3?style=for-the-badge&logo=r&logoColor=white" alt="R">
+  <img src="https://img.shields.io/badge/Version-0.1.0-blue?style=for-the-badge" alt="Version">
+  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="License">
+</p>
 
-### English
+<p align="center">
+  <a href="https://github.com/Saintfoin/HASr/actions">
+    <img src="https://github.com/Saintfoin/HASr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check">
+  </a>
+  <a href="https://codecov.io/gh/Saintfoin/HASr">
+    <img src="https://img.shields.io/codecov/c/github/Saintfoin/HASr?style=flat-square" alt="Codecov">
+  </a>
+  <a href="https://cran.r-project.org/package=HASr">
+    <img src="https://www.r-pkg.org/badges/version/HASr" alt="CRAN status">
+  </a>
+  <a href="https://github.com/Saintfoin/HASr/issues">
+    <img src="https://img.shields.io/github/issues/Saintfoin/HASr?style=flat-square" alt="GitHub issues">
+  </a>
+</p>
+
+<p align="center">
+  <strong>🏥 专业的老龄化研究数据处理工具包 | Professional Aging Research Data Processing Toolkit</strong>
+</p>
+
+<p align="center">
+  <a href="#-installation--安装方法">安装</a> •
+  <a href="#-usage--使用方法">使用</a> •
+  <a href="#-documentation--文档">文档</a> •
+  <a href="#-contributing--贡献">贡献</a> •
+  <a href="https://saintfoin.github.io/HASr/">网站</a>
+</p>
+
+</div>
+
+---
+
+## ✨ Key Features / 核心功能
+
+<div align="center">
+
+| 🧬 **Data Processing** | 📊 **Analysis Tools** | 🔒 **Privacy Protection** | 🎨 **Visualization** |
+|:---:|:---:|:---:|:---:|
+| 多维度数据解析 | 统计分析功能 | 差分隐私保护 | 专业图表生成 |
+| Multi-dimensional parsing | Statistical analysis | Differential privacy | Professional plotting |
+
+</div>
+
+### 🔥 What's New in v0.1.0
+
+- ✅ **8个专业数据解析函数** - 覆盖人口统计学、神经系统、心血管等多个领域
+- ✅ **隐私保护机制** - 内置差分隐私算法保护敏感数据
+- ✅ **完整测试覆盖** - 超过100个单元测试确保代码质量
+- ✅ **双语文档** - 中英文完整文档支持
+- ✅ **GitHub Pages** - 在线文档网站
+
+---
+
+## 🎯 Background & Purpose / 项目背景与目的
+
+### 🌍 English
 
 With rapid urbanization in China, rural elderly populations are transitioning into urban settings. Most domestic cohort studies still focus on rural populations, and there's a lack of systematic research into healthy aging in urban environments.
 
-This project, based on the Hefei Aging Study (HAS), focuses on urban aging progression in a culturally distinct district (Luyang, Hefei), integrating clinical, cognitive, imaging, and biomarker data from adults 55 and older.
+This project, based on the Hefei Aging Study (HAS), focuses on urban aging progression in a culturally distinct district (Luyang, Hefei), integrating clinical, cognitive, imaging, and biomarker data from adults 50 and older.
 
 Our goal is to identify people in the "preclinical abnormal" state — with abnormal biomarkers but no clinical symptoms — and explore lifestyle and nutritional interventions that could slow or reverse cognitive decline in urban aging populations.
 
-### 中文
+### 🇨🇳 中文
 
 随着中国城市化进程的快速发展，农村老年人口正在向城市环境转移。目前国内队列研究仍主要关注农村人群，缺乏对城市环境中健康老龄化的系统性研究。
 
-本项目基于合肥老龄化研究（HAS），聚焦于文化特色鲜明的城区（合肥庐阳区）的城市老龄化进程，整合了55岁及以上成年人的临床、认知、影像学和生物标志物数据。
+本项目基于合肥老龄化研究（HAS），聚焦于文化特色鲜明的城区（合肥庐阳区）的城市老龄化进程，整合了50岁及以上成年人的临床、认知、影像学和生物标志物数据。
 
 我们的目标是识别处于"临床前异常"状态的人群——即生物标志物异常但无临床症状的个体，并探索可能延缓或逆转城市老龄化人群认知衰退的生活方式和营养干预措施。
 
-## Project Structure / 项目结构
+## 📁 Project Structure / 项目结构
 
 ```
 HASr/
@@ -45,9 +102,9 @@ HASr/
 └── _config.yml           # GitHub Pages config
 ```
 
-## Installation / 安装方法
+## 🚀 Installation / 安装方法
 
-### From GitHub / 从GitHub安装
+### 📦 From GitHub / 从GitHub安装
 
 ```r
 # Install devtools if you haven't already
@@ -59,7 +116,7 @@ if (!require(devtools)) {
 devtools::install_github("USTC-HAS/HASr")
 ```
 
-### Dependencies / 依赖包
+### 🔧 Dependencies / 依赖包
 
 The package requires the following R packages:
 本包需要以下R包：
@@ -71,9 +128,9 @@ install.packages(c(
 ))
 ```
 
-## Usage / 使用方法
+## 💻 Usage / 使用方法
 
-### Basic Usage / 基本用法
+### 🔰 Basic Usage / 基本用法
 
 ```r
 library(HASr)
@@ -157,7 +214,7 @@ clean_values <- clean_numeric(c("123.45kg", "67.8cm", "45mg/dl"))
 birth_dates <- parse_birth_date(c("1965年5月7日", "19650507", "1965.05.07"))
 ```
 
-### Advanced Usage / 高级用法
+### 🚀 Advanced Usage / 高级用法
 
 For detailed usage examples and tutorials, please refer to the package vignettes:
 详细的使用示例和教程，请参考包的说明文档：
@@ -170,7 +227,7 @@ vignette(package = "HASr")
 vignette("data-processing", package = "HASr")
 ```
 
-## Documentation / 文档
+## 📚 Documentation / 文档
 
 - **Function Reference**: Use `?function_name` or `help(function_name)` for detailed documentation
 - **Vignettes**: Comprehensive guides available via `vignette(package = "HASr")`
@@ -180,21 +237,21 @@ vignette("data-processing", package = "HASr")
 - **说明文档**: 通过 `vignette(package = "HASr")` 获取综合指南
 - **网站**: 访问我们的 [GitHub Pages 网站](https://ustc-has.github.io/HASr/) 查看在线文档
 
-## Contributing / 贡献
+## 🤝 Contributing / 贡献
 
 We welcome contributions to the HASr package! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
 我们欢迎对HASr包的贡献！详情请参见我们的[贡献指南](CONTRIBUTING.md)。
 
-## Contact & Contributors / 联系方式与贡献者
+## 👥 Contact & Contributors / 联系方式与贡献者
 
-### Research Team / 研究团队
+### 🔬 Research Team / 研究团队
 
 - **Principal Investigator**: [Name] (University of Science and Technology of China)
 - **Data Analysis Team**: HAS Research Group
 - **Package Maintainer**: HAS Research Team (has@ustc.edu.cn)
 
-### Institution / 机构
+### 🏛️ Institution / 机构
 
 **University of Science and Technology of China (USTC)**  
 **中国科学技术大学**
@@ -205,7 +262,7 @@ School of Life Sciences
 Hefei, Anhui 230027, China  
 中国安徽合肥 230027
 
-### Citation / 引用
+### 📖 Citation / 引用
 
 If you use this package in your research, please cite:
 如果您在研究中使用了此包，请引用：
@@ -215,7 +272,7 @@ HAS Research Team (2024). HASr: Hefei Aging Study Data Processing Tools.
 R package version 0.1.0. https://github.com/USTC-HAS/HASr
 ```
 
-## License / 许可证
+## 📄 License / 许可证
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 

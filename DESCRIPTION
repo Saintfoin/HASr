@@ -2,7 +2,7 @@ Package: HASr
 Type: Package
 Title: Hefei Aging Study (HAS) Data Processing and Analysis Tools
 Version: 0.1.0
-Date: 2024-12-19
+Date: 2025-07-28
 Authors@R: c(
     person("HAS Research Team", role = c("aut", "cre"),
            email = "has@ustc.edu.cn"),
@@ -15,7 +15,7 @@ Description: A comprehensive R package for processing and analyzing data from th
     and cerebrovascular health indicators in urban aging populations. The HAS 
     cohort focuses on healthy aging progression in Luyang District, Hefei, 
     integrating clinical, cognitive, imaging, and biomarker data from adults 
-    aged 55 and older.
+    aged 50 and older.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
