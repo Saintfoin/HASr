@@ -108,6 +108,48 @@ msk_data <- parse_msk(
   arthritis = TRUE
 )
 
+# Parse cardiovascular data / 解析心血管系统数据
+card_data <- parse_card(
+  df = your_dataframe,
+  lvef = TRUE,
+  hypertension = TRUE,
+  lipids = TRUE,
+  carotid = TRUE
+)
+
+# Parse endocrine data / 解析内分泌系统数据
+endo_data <- parse_endo(
+  df = your_dataframe,
+  diabetes = TRUE,
+  glucose = TRUE,
+  thyroid = TRUE,
+  metabolic_syndrome = TRUE
+)
+
+# Parse immune/inflammatory data / 解析免疫炎症数据
+immo_data <- parse_immo(
+  df = your_dataframe,
+  hscrp = TRUE,
+  cytokines = TRUE,
+  inflammatory_indices = TRUE
+)
+
+# Parse cerebrovascular disease data / 解析脑小血管病数据
+scvd_data <- parse_scvd(
+  df = your_dataframe,
+  ptau217 = TRUE,
+  apoe4 = TRUE,
+  wmh = TRUE,
+  lacunes = TRUE
+)
+
+# Apply differential privacy masking / 应用差分隐私掩码
+masked_data <- mask_df(
+  df = your_dataframe,
+  columns = c("age", "bmi"),
+  noise_level = 0.1
+)
+
 # Clean numeric data / 清洗数值型数据
 clean_values <- clean_numeric(c("123.45kg", "67.8cm", "45mg/dl"))
 

@@ -135,3 +135,93 @@ test_that("Functions handle edge cases properly", {
   result_na <- parse_demo(na_df, age = TRUE, sex = TRUE)
   expect_equal(nrow(result_na), 3)
 })
+
+test_that("parse_card handles cardiovascular variables correctly", {
+  # Check if d_card.csv exists in data folder
+  card_file <- file.path("../../data/d_card.csv")
+  if (file.exists(card_file)) {
+    test_data <- data.frame(id = 1:3)
+    
+    # Test cardiovascular parsing
+    result <- parse_card(test_data, lvef = TRUE, hypertension = TRUE)
+    
+    expect_true("lvef" %in% names(result) || "hypertension" %in% names(result))
+    expect_equal(nrow(result), 3)
+  } else {
+    skip("d_card.csv file not found in data folder")
+  }
+})
+
+test_that("parse_endo handles endocrine variables correctly", {
+  # Check if d_endo.csv exists in data folder
+  endo_file <- file.path("../../data/d_endo.csv")
+  if (file.exists(endo_file)) {
+    test_data <- data.frame(id = 1:3)
+    
+    # Test endocrine parsing
+    result <- parse_endo(test_data, diabetes = TRUE, glucose = TRUE)
+    
+    expect_true("diabetes" %in% names(result) || "glucose" %in% names(result))
+    expect_equal(nrow(result), 3)
+  } else {
+    skip("d_endo.csv file not found in data folder")
+  }
+})
+
+test_that("parse_immo handles immune variables correctly", {
+  # Check if d_immo.csv exists in data folder
+  immo_file <- file.path("../../data/d_immo.csv")
+  if (file.exists(immo_file)) {
+    test_data <- data.frame(id = 1:3)
+    
+    # Test immune parsing
+    result <- parse_immo(test_data, hscrp = TRUE, il6 = TRUE)
+    
+    expect_true("hscrp" %in% names(result) || "il6" %in% names(result))
+    expect_equal(nrow(result), 3)
+  } else {
+    skip("d_immo.csv file not found in data folder")
+  }
+})
+
+test_that("parse_scvd handles cerebrovascular variables correctly", {
+  # Check if d_scvd.csv exists in data folder
+  scvd_file <- file.path("../../data/d_scvd.csv")
+  if (file.exists(scvd_file)) {
+    test_data <- data.frame(id = 1:3)
+    
+    # Test cerebrovascular parsing
+    result <- parse_scvd(test_data, ptau217 = TRUE, apoe4 = TRUE)
+    
+    expect_true("ptau217" %in% names(result) || "apoe4" %in% names(result))
+    expect_equal(nrow(result), 3)
+  } else {
+    skip("d_scvd.csv file not found in data folder")
+  }
+})
+
+test_that("mask_df works correctly for privacy protection", {
+  # Create test data
+  test_data <- data.frame(
+    id = 1:5,
+    age = c(65, 70, 75, 80, 85),
+    sex = c("M", "F", "M", "F", "M"),
+    married = c(TRUE, FALSE, TRUE, TRUE, FALSE),
+    birth_date = as.Date(c("1958-01-01", "1953-01-01", "1948-01-01", "1943-01-01", "1938-01-01"))
+  )
+  
+  # Test masking with default parameters
+  masked_data <- mask_df(test_data, noise_level = 0.1)
+  
+  expect_equal(nrow(masked_data), nrow(test_data))
+  expect_equal(ncol(masked_data), ncol(test_data))
+  expect_equal(names(masked_data), names(test_data))
+  
+  # Test that numeric columns are modified
+  expect_false(identical(test_data$age, masked_data$age))
+  
+  # Test with specific columns
+  masked_subset <- mask_df(test_data, columns = c("age"), noise_level = 0.05)
+  expect_equal(test_data$sex, masked_subset$sex)  # Should be unchanged
+  expect_false(identical(test_data$age, masked_subset$age))  # Should be changed
+})

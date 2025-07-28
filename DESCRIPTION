@@ -29,7 +29,8 @@ Imports:
     ggplot2 (>= 3.3.0),
     scales (>= 1.1.0),
     readr (>= 2.0.0),
-    tidyr (>= 1.1.0)
+    tidyr (>= 1.1.0),
+    stats
 Suggests:
     knitr (>= 1.30),
     rmarkdown (>= 2.0),
