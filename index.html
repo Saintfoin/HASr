@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASr - 健康与老龄化社会研究</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .features {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .features h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .feature-item h4 {
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+        
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>HASr</h1>
+            <p>健康与老龄化社会研究 - Health and Aging Social Research</p>
+        </div>
+        
+        <div class="cards">
+            <div class="card">
+                <h3>🔍 变量查询器</h3>
+                <p>交互式变量浏览工具，支持智能搜索、多维度筛选和数据可视化。采用现代Safari风格设计，提供优秀的用户体验。</p>
+                <a href="variable-explorer.html" class="btn">开始探索</a>
+            </div>
+            
+            <div class="card">
+                <h3>📊 数据处理</h3>
+                <p>提供完整的R包功能，包含数据解析、清洗和分析工具。支持多种数据格式，简化研究工作流程。</p>
+                <a href="https://github.com/Saintfoin/HASr" class="btn">查看代码</a>
+            </div>
+            
+            <div class="card">
+                <h3>📚 文档中心</h3>
+                <p>详细的使用指南、API文档和最佳实践。帮助研究人员快速上手并充分利用工具功能。</p>
+                <a href="DEPLOYMENT.md" class="btn">阅读文档</a>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2>核心特性</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>🎯 智能搜索</h4>
+                    <p>支持变量名、描述和类型的模糊搜索</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📱 响应式设计</h4>
+                    <p>完美适配桌面、平板和移动设备</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🎨 现代界面</h4>
+                    <p>Safari风格的优雅设计和流畅动画</p>
+                </div>
+                <div class="feature-item">
+                    <h4>⚡ 高性能</h4>
+                    <p>快速加载和实时数据筛选</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔧 易于使用</h4>
+                    <p>直观的用户界面和清晰的数据展示</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📈 数据洞察</h4>
+                    <p>丰富的统计信息和数据分布可视化</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2024 HASr Project. 开源项目，欢迎贡献。</p>
+            <p>Built with ❤️ for health and aging research community.</p>
+        </div>
+    </div>
+</body>
+</html>
