@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASr 变量查询器 | Variable Explorer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔍</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .search-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 20px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-select:focus {
+            border-color: #667eea;
+        }
+
+        .results-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .variable-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        .variable-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .variable-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .variable-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .variable-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .type-numeric {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .type-character {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+
+        .type-logical {
+            background: #e8f5e8;
+            color: #388e3c;
+        }
+
+        .variable-description {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .distribution-bar {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .distribution-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .search-section, .results-section {
+                padding: 20px;
+            }
+
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 HASr 变量查询器</h1>
+            <p>探索健康与老龄化社会调查数据集中的变量信息与分布</p>
+        </div>
+
+        <div class="search-section">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="搜索变量名称或描述...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="typeFilter">类型:</label>
+                    <select id="typeFilter" class="filter-select">
+                        <option value="">全部类型</option>
+                        <option value="numeric">数值型</option>
+                        <option value="character">字符型</option>
+                        <option value="logical">逻辑型</option>
+                        <option value="factor">因子型</option>
+                        <option value="undefined">未定义</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="categoryFilter">分类:</label>
+                    <select id="categoryFilter" class="filter-select">
+                        <option value="">全部分类</option>
+                        <option value="basic">基本信息</option>
+                        <option value="health">健康状况</option>
+                        <option value="lifestyle">生活方式</option>
+                        <option value="medical">医学检查</option>
+                        <option value="social">社会经济</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy">排序:</label>
+                    <select id="sortBy" class="filter-select">
+                        <option value="name">按名称</option>
+                        <option value="type">按类型</option>
+                        <option value="missing">按缺失率</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <div id="loadingIndicator" class="loading">
+                <div class="spinner"></div>
+                <p>正在加载数据...</p>
+            </div>
+            <div id="resultsContainer" style="display: none;"></div>
+        </div>
+
+        <div class="footer">
+            <p>© 2024 HASr Project | <a href="https://github.com/your-username/HASr" target="_blank">GitHub</a> | <a href="../index.html">返回首页</a></p>
+        </div>
+    </div>
+
+    <script>
+        // 数据存储
+        let variablesData = [];
+        let codebookData = [];
+        let filteredData = [];
+
+        // DOM 元素
+        const searchInput = document.getElementById('searchInput');
+        const typeFilter = document.getElementById('typeFilter');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortBy = document.getElementById('sortBy');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            setupEventListeners();
+        });
+
+        // 设置事件监听器
+        function setupEventListeners() {
+            searchInput.addEventListener('input', debounce(filterAndRender, 300));
+            typeFilter.addEventListener('change', filterAndRender);
+            categoryFilter.addEventListener('change', filterAndRender);
+            sortBy.addEventListener('change', filterAndRender);
+        }
+
+        // 防抖函数
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // 加载数据
+        async function loadData() {
+            try {
+                // 加载真实数据
+                const response = await fetch('./variables-data.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                variablesData = await response.json();
+                
+                // 加载数据摘要
+                try {
+                    const summaryResponse = await fetch('./data-summary.json');
+                    if (summaryResponse.ok) {
+                        const summary = await summaryResponse.json();
+                        console.log('数据摘要:', summary);
+                        updateDataSummary(summary);
+                    }
+                } catch (summaryError) {
+                    console.warn('无法加载数据摘要:', summaryError);
+                }
+                
+                loadingIndicator.style.display = 'none';
+                resultsContainer.style.display = 'block';
+                
+                filterAndRender();
+            } catch (error) {
+                console.error('数据加载失败:', error);
+                showError('数据加载失败，请检查网络连接或刷新页面重试');
+            }
+        }
+
+        // 更新数据摘要显示
+        function updateDataSummary(summary) {
+            const summaryHtml = `
+                <div style="background: #f8f9fa; border-radius: 12px; padding: 20px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <h3 style="margin-bottom: 15px; color: #2c3e50;">📊 数据集概览</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
+                        <div class="stat-item">
+                            <span class="stat-value">${summary.total_variables}</span>
+                            <span class="stat-label">总变量数</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${summary.by_type.numeric || 0}</span>
+                            <span class="stat-label">数值型</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${summary.by_type.character || 0}</span>
+                            <span class="stat-label">字符型</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${summary.by_type.logical || 0}</span>
+                            <span class="stat-label">逻辑型</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${summary.by_type.factor || 0}</span>
+                            <span class="stat-label">因子型</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${summary.missing_data_summary.variables_with_missing}</span>
+                            <span class="stat-label">含缺失值变量</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            const resultsSection = document.querySelector('.results-section');
+            resultsSection.insertAdjacentHTML('afterbegin', summaryHtml);
+        }
+
+        // 过滤和渲染数据
+        function filterAndRender() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const typeValue = typeFilter.value;
+            const categoryValue = categoryFilter.value;
+            const sortValue = sortBy.value;
+
+            // 过滤数据
+            filteredData = variablesData.filter(item => {
+                const variable = item.variable || '';
+                const description = item.description || '';
+                const type = item.type || '';
+                const category = item.category || '';
+                
+                const matchesSearch = !searchTerm || 
+                    variable.toLowerCase().includes(searchTerm) ||
+                    description.toLowerCase().includes(searchTerm);
+                
+                const matchesType = !typeValue || type === typeValue;
+                const matchesCategory = !categoryValue || category === categoryValue;
+
+                return matchesSearch && matchesType && matchesCategory;
+            });
+
+            // 排序数据
+            filteredData.sort((a, b) => {
+                switch (sortValue) {
+                    case 'name':
+                        const varA = a.variable || '';
+                        const varB = b.variable || '';
+                        return varA.localeCompare(varB);
+                    case 'type':
+                        const typeA = a.type || '';
+                        const typeB = b.type || '';
+                        return typeA.localeCompare(typeB);
+                    case 'missing':
+                        return (b.n_missing || 0) - (a.n_missing || 0);
+                    default:
+                        return 0;
+                }
+            });
+
+            renderResults();
+        }
+
+        // 渲染结果
+        function renderResults() {
+            if (filteredData.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="no-results">
+                        <div class="no-results-icon">🔍</div>
+                        <h3>未找到匹配的变量</h3>
+                        <p>请尝试调整搜索条件或筛选器</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const html = filteredData.map(variable => createVariableCard(variable)).join('');
+            resultsContainer.innerHTML = html;
+        }
+
+        // 创建变量卡片
+        function createVariableCard(variable) {
+            const typeClass = `type-${variable.type}`;
+            const completionRate = (variable.complete_rate * 100).toFixed(1);
+            
+            let statsHtml = '';
+            if (variable.type === 'numeric') {
+                statsHtml = `
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">${variable.mean?.toFixed(2) || 'N/A'}</span>
+                            <span class="stat-label">均值</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${variable.sd?.toFixed(2) || 'N/A'}</span>
+                            <span class="stat-label">标准差</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${variable.min || 'N/A'}</span>
+                            <span class="stat-label">最小值</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${variable.max || 'N/A'}</span>
+                            <span class="stat-label">最大值</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${variable.n_missing || 0}</span>
+                            <span class="stat-label">缺失值</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${completionRate}%</span>
+                            <span class="stat-label">完整率</span>
+                        </div>
+                    </div>
+                `;
+            } else {
+                statsHtml = `
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value">${variable.n_missing || 0}</span>
+                            <span class="stat-label">缺失值</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">${completionRate}%</span>
+                            <span class="stat-label">完整率</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="variable-card">
+                    <div class="variable-header">
+                        <div>
+                            <div class="variable-name">${variable.variable}</div>
+                            <div class="variable-description">${variable.description}</div>
+                        </div>
+                        <span class="variable-type ${typeClass}">${variable.type}</span>
+                    </div>
+                    
+                    <div class="distribution-bar">
+                        <div class="distribution-fill" style="width: ${completionRate}%"></div>
+                    </div>
+                    
+                    ${statsHtml}
+                    
+                    ${variable.notes ? `<p style="margin-top: 15px; font-size: 13px; color: #666; font-style: italic;">📝 ${variable.notes}</p>` : ''}
+                </div>
+            `;
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            loadingIndicator.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            resultsContainer.innerHTML = `
+                <div class="no-results">
+                    <div class="no-results-icon">⚠️</div>
+                    <h3>加载失败</h3>
+                    <p>${message}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

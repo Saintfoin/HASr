@@ -32,6 +32,7 @@ jobs:
       uses: actions/upload-pages-artifact@v3
       with:
         path: './docs'
+        if-no-files-found: error
     
     - name: Deploy to GitHub Pages
       id: deployment

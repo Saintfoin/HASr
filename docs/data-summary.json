@@ -1,0 +1,20 @@
+{
+  "total_variables": 796,
+  "by_type": {
+    "character": 156,
+    "factor": 45,
+    "logical": 267,
+    "numeric": 4,
+    "undefined": 324
+  },
+  "by_category": {
+    "basic": 6,
+    "other": 786,
+    "health": 2,
+    "social": 2
+  },
+  "missing_data_summary": {
+    "variables_with_missing": 464,
+    "total_missing_values": 419628
+  }
+}
