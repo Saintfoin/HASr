@@ -249,7 +249,7 @@ We welcome contributions to the HASr package! Please see our [Contributing Guide
 
 - **Principal Investigator**: [Name] (University of Science and Technology of China)
 - **Data Analysis Team**: HAS Research Group
-- **Package Maintainer**: HAS Research Team (has@ustc.edu.cn)
+- **Package Maintainer**: Zhang Xianzuo (zhangxianzuo@ustc.edu.cn)
 
 ### 🏛️ Institution / 机构
 
