@@ -44,10 +44,10 @@
 
 <div align="center">
 
-| 🧬 **Data Processing** | 📊 **Analysis Tools** | 🔒 **Privacy Protection** | 🎨 **Visualization** |
-|:---:|:---:|:---:|:---:|
-| 多维度数据解析 | 统计分析功能 | 差分隐私保护 | 专业图表生成 |
-| Multi-dimensional parsing | Statistical analysis | Differential privacy | Professional plotting |
+| 🧬 **Data Processing** | 📊 **Analysis Tools** | 🔒 **Privacy Protection** | 🎨 **Visualization** | 🌐 **Variable Explorer** |
+|:---:|:---:|:---:|:---:|:---:|
+| 多维度数据解析 | 统计分析功能 | 差分隐私保护 | 专业图表生成 | Safari风格变量查询器 |
+| Multi-dimensional parsing | Statistical analysis | Differential privacy | Professional plotting | Safari-style variable browser |
 
 </div>
 
@@ -101,6 +101,15 @@ HASr/
 ├── README.md             # This file
 └── _config.yml           # GitHub Pages config
 ```
+
+## 🌐 Variable Explorer / 变量查询器
+
+**立即访问：[HASr 变量查询器](https://saintfoin.github.io/HASr/variable-explorer.html)**
+
+- 🔍 搜索和浏览所有研究变量 / Search and browse all research variables
+- 📊 查看数据分布和统计信息 / View data distribution and statistics
+- 🏷️ 按类型和类别筛选变量 / Filter variables by type and category
+- 📱 响应式设计，支持移动设备 / Responsive design for mobile devices
 
 ## 🚀 Installation / 安装方法
 
@@ -229,13 +238,17 @@ vignette("data-processing", package = "HASr")
 
 ## 📚 Documentation / 文档
 
+- **Variable Explorer**: [在线变量查询器](https://saintfoin.github.io/HASr/variable-explorer.html) - Safari-style variable browser
 - **Function Reference**: Use `?function_name` or `help(function_name)` for detailed documentation
 - **Vignettes**: Comprehensive guides available via `vignette(package = "HASr")`
 - **Website**: Visit our [GitHub Pages site](https://ustc-has.github.io/HASr/) for online documentation
+- **Deployment Guide**: [部署说明](DEPLOYMENT.md) - GitHub Pages deployment instructions
 
+- **变量查询器**: [在线变量浏览工具](https://saintfoin.github.io/HASr/variable-explorer.html) - Safari风格的变量浏览器
 - **函数参考**: 使用 `?function_name` 或 `help(function_name)` 查看详细文档
 - **说明文档**: 通过 `vignette(package = "HASr")` 获取综合指南
 - **网站**: 访问我们的 [GitHub Pages 网站](https://ustc-has.github.io/HASr/) 查看在线文档
+- **部署指南**: [GitHub Pages 部署说明](DEPLOYMENT.md)
 
 ## 🤝 Contributing / 贡献
 
