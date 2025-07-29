@@ -104,7 +104,7 @@ HASr/
 
 ## 🌐 Variable Explorer / 变量查询器
 
-**立即访问：[HASr 变量查询器](https://saintfoin.github.io/HASr/variable-explorer.html)**
+**立即访问：[HASr 变量查询器](https://saintfoin.github.io/HASr/docs/variable-explorer.html)**
 
 - 🔍 搜索和浏览所有研究变量 / Search and browse all research variables
 - 📊 查看数据分布和统计信息 / View data distribution and statistics
